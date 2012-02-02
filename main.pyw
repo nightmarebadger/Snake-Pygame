@@ -23,6 +23,18 @@ def drawSquare(screen, position, color):
     """
     screen.fill(color, (position[0] * w + 1, position[1] * h + 1, w - 1, h - 1))
 
+class Food:
+    def __init__(self, screen, x, y, color):
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.color = color
+
+    def givePos(self):
+        return (self.x, self.y)
+
+    def draw(self):
+        drawSquare(self.screen, self.givePos(), self.color)
 
 class Snake:
     def __init__(self, screen, bgcolor, x, y, color, grow_to = 2):
@@ -141,6 +153,9 @@ for i in range(h, height, h):
 # Makes snake and does the initial drawing
 snake = Snake(screen, white, 24, 24, black, 5)
 snake.draw()
+
+food = Food(screen, 10, 10, red)
+food.draw()
 
 pygame.display.flip()
 
