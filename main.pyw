@@ -53,6 +53,9 @@ class Snake:
 
         self.speed = 1
 
+    def eat(self, n):
+        self.grow_to += n
+
     def givePos(self):
         return (self.x, self.y)
 
@@ -170,6 +173,9 @@ while running:
             running = False
         if(event.type == pygame.KEYDOWN):
             snake.keyHandler(event)
+
+    if(snake.givePos() == food.givePos()):
+        snake.eat(1)
 
     pygame.display.flip()
     clock.tick(10)
