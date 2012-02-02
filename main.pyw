@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 3:26:13
+* Last Modified : 2.2.2012 3:27:50
 
 """
 
@@ -116,14 +116,15 @@ clock = pygame.time.Clock()
 
 running = True
 
+
+# Makes background and grid
 screen.fill(white)
 for i in range(w, width, w):
     pygame.draw.line(screen, black, (i,0), (i,height))
 for i in range(h, height, h):
     pygame.draw.line(screen, black, (0,i), (height,i))
 
-#drawSquare(screen, (2,3), blue)
-
+# Makes snake and does the initial drawing
 snake = Snake(screen, white, 24, 24, black)
 snake.draw()
 
