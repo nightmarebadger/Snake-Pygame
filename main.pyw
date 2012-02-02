@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 3:27:50
+* Last Modified : 2.2.2012 3:31:19
 
 """
 
@@ -45,19 +45,33 @@ class Snake:
         return (event.x, event.y)
 
     def keyHandler(self, event):
+        try:
+            if(event.key == pygame.K_UP and (self.x, self.y - 1) != self.body[0]):
+                self.vx = 0
+                self.vy = -self.speed
+            elif(event.key == pygame.K_DOWN and (self.x, self.y + 1) != self.body[0]):
+                self.vx = 0
+                self.vy = self.speed
+            elif(event.key == pygame.K_LEFT and (self.x - 1, self.y) != self.body[0]):
+                self.vx = -self.speed
+                self.vy = 0
+            elif(event.key == pygame.K_RIGHT and (self.x + 1, self.y) != self.body[0]):
+                self.vx = self.speed
+                self.vy = 0
+        except:
 
-        if(event.key == pygame.K_UP and (self.x, self.y - 1) not in self.body):
-            self.vx = 0
-            self.vy = -self.speed
-        elif(event.key == pygame.K_DOWN and (self.x, self.y + 1) not in self.body):
-            self.vx = 0
-            self.vy = self.speed
-        elif(event.key == pygame.K_LEFT and (self.x - 1, self.y) not in self.body):
-            self.vx = -self.speed
-            self.vy = 0
-        elif(event.key == pygame.K_RIGHT and (self.x + 1, self.y) not in self.body):
-            self.vx = self.speed
-            self.vy = 0
+            if(event.key == pygame.K_UP):
+                self.vx = 0
+                self.vy = -self.speed
+            elif(event.key == pygame.K_DOWN):
+                self.vx = 0
+                self.vy = self.speed
+            elif(event.key == pygame.K_LEFT):
+                self.vx = -self.speed
+                self.vy = 0
+            elif(event.key == pygame.K_RIGHT):
+                self.vx = self.speed
+                self.vy = 0
 
 
 
@@ -125,7 +139,7 @@ for i in range(h, height, h):
     pygame.draw.line(screen, black, (0,i), (height,i))
 
 # Makes snake and does the initial drawing
-snake = Snake(screen, white, 24, 24, black)
+snake = Snake(screen, white, 24, 24, black, 6)
 snake.draw()
 
 pygame.display.flip()
