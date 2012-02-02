@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 3:31:19
+* Last Modified : 2.2.2012 3:34:44
 
 """
 
@@ -31,13 +31,13 @@ class Snake:
         self.x = x
         self.y = y
         self.color = color
-        self.grow_to = grow_to
+        self.grow_to = grow_to - 1
         
         self.vx = 0
         self.vy = 0
         self.body = []
         self.crashed = False
-        self.length = 1
+        self.length = 0
 
         self.speed = 1
 
@@ -139,7 +139,7 @@ for i in range(h, height, h):
     pygame.draw.line(screen, black, (0,i), (height,i))
 
 # Makes snake and does the initial drawing
-snake = Snake(screen, white, 24, 24, black, 6)
+snake = Snake(screen, white, 24, 24, black, 5)
 snake.draw()
 
 pygame.display.flip()
