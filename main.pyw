@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 3:07:23
+* Last Modified : 2.2.2012 3:09:37
 
 """
 
@@ -42,19 +42,18 @@ class Snake:
         self.speed = 1
 
 
-    def keyHandler(self):
-        keys = pygame.key.get_pressed()
+    def keyHandler(self, event):
 
-        if(keys[pygame.K_UP] and self.vy <= 0):
+        if(event.key == pygame.K_UP and self.vy <= 0):
             self.vx = 0
             self.vy = -self.speed
-        elif(keys[pygame.K_DOWN] and self.vy >= 0):
+        elif(event.key == pygame.K_DOWN and self.vy >= 0):
             self.vx = 0
             self.vy = self.speed
-        elif(keys[pygame.K_LEFT] and self.vx <= 0):
+        elif(event.key == pygame.K_LEFT and self.vx <= 0):
             self.vx = -self.speed
             self.vy = 0
-        elif(keys[pygame.K_RIGHT] and self.vx >= 0):
+        elif(event.key == pygame.K_RIGHT and self.vx >= 0):
             self.vx = self.speed
             self.vy = 0
 
@@ -119,12 +118,13 @@ pygame.display.flip()
 
 while running:
 
-    snake.keyHandler()
     snake.move()
 
     for event in pygame.event.get():
         if(event.type == pygame.QUIT):
             running = False
-    
+        if(event.type == pygame.KEYDOWN):
+            snake.keyHandler(event)
+
     pygame.display.flip()
     clock.tick(5)
