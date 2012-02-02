@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 3:09:37
+* Last Modified : 2.2.2012 3:14:57
 
 """
 
@@ -44,16 +44,16 @@ class Snake:
 
     def keyHandler(self, event):
 
-        if(event.key == pygame.K_UP and self.vy <= 0):
+        if(event.key == pygame.K_UP and (self.x, self.y - 1) not in self.body):
             self.vx = 0
             self.vy = -self.speed
-        elif(event.key == pygame.K_DOWN and self.vy >= 0):
+        elif(event.key == pygame.K_DOWN and (self.x, self.y + 1) not in self.body):
             self.vx = 0
             self.vy = self.speed
-        elif(event.key == pygame.K_LEFT and self.vx <= 0):
+        elif(event.key == pygame.K_LEFT and (self.x - 1, self.y) not in self.body):
             self.vx = -self.speed
             self.vy = 0
-        elif(event.key == pygame.K_RIGHT and self.vx >= 0):
+        elif(event.key == pygame.K_RIGHT and (self.x + 1, self.y) not in self.body):
             self.vx = self.speed
             self.vy = 0
 
