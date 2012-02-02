@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 3:14:57
+* Last Modified : 2.2.2012 3:15:45
 
 """
 
@@ -127,4 +127,4 @@ while running:
             snake.keyHandler(event)
 
     pygame.display.flip()
-    clock.tick(5)
+    clock.tick(10)
