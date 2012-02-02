@@ -131,6 +131,8 @@ red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
 
+bgcolor = white
+
 fruitcolors = [black, white, red, green, blue]
 
 width = 600
@@ -150,21 +152,30 @@ running = True
 
 
 # Makes background and grid
-screen.fill(white)
+screen.fill(bgcolor)
 for i in range(w, width, w):
     pygame.draw.line(screen, black, (i,0), (i,height))
 for i in range(h, height, h):
     pygame.draw.line(screen, black, (0,i), (height,i))
 
 # Makes snake and does the initial drawing
-snake = Snake(screen, white, 24, 24, black, 5)
+snake = Snake(screen, bgcolor, 24, 24, black, 5)
 snake.draw()
 
 # Makes sure food isn't colored the same as snake
 if(snake.color in fruitcolors):
     fruitcolors.remove(snake.color)
+# Makes sure food isn't colored the same as background (making it invisible)
+if(bgcolor in fruitcolors):
+    fruitcolors.remove(bgcolor)
 
-food = Food(screen, random.randint(0,wid-1), random.randint(0, hei-1), fruitcolors[random.randint(0, len(fruitcolors)-1)], 1)
+foo = random.randint(0, wid-1)
+bar = random.randint(0, hei-1)
+while((foo, bar) in snake.body):
+    foo = random.randint(0, wid-1)
+    bar = random.randint(0, hei-1)
+
+food = Food(screen, foo, bar, fruitcolors[random.randint(0, len(fruitcolors)-1)], 1)
 food.draw()
 
 pygame.display.flip()
@@ -183,7 +194,12 @@ while running:
 
     if(snake.givePos() == food.givePos()):
         snake.eat(food.nutrition)
-        food = Food(screen, random.randint(0,wid-1), random.randint(0, hei-1), fruitcolors[random.randint(0, len(fruitcolors)-1)], 1)
+        foo = random.randint(0, wid-1)
+        bar = random.randint(0, hei-1)
+        while((foo, bar) in snake.body):
+            foo = random.randint(0, wid-1)
+            bar = random.randint(0, hei-1)
+        food = Food(screen, foo, bar, fruitcolors[random.randint(0, len(fruitcolors)-1)], 1)
         food.draw()
 
     pygame.display.flip()
