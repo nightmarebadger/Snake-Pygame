@@ -14,6 +14,7 @@
 
 
 import pygame
+import random
 
 
 def drawSquare(screen, position, color):
@@ -24,11 +25,12 @@ def drawSquare(screen, position, color):
     screen.fill(color, (position[0] * w + 1, position[1] * h + 1, w - 1, h - 1))
 
 class Food:
-    def __init__(self, screen, x, y, color):
+    def __init__(self, screen, x, y, color, nutrition):
         self.screen = screen
         self.x = x
         self.y = y
         self.color = color
+        self.nutrition = nutrition
 
     def givePos(self):
         return (self.x, self.y)
@@ -129,6 +131,7 @@ red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
 
+fruitcolors = [black, white, red, green, blue]
 
 width = 600
 height = 600
@@ -157,7 +160,11 @@ for i in range(h, height, h):
 snake = Snake(screen, white, 24, 24, black, 5)
 snake.draw()
 
-food = Food(screen, 10, 10, red)
+# Makes sure food isn't colored the same as snake
+if(snake.color in fruitcolors):
+    fruitcolors.remove(snake.color)
+
+food = Food(screen, random.randint(0,wid-1), random.randint(0, hei-1), fruitcolors[random.randint(0, len(fruitcolors)-1)], 1)
 food.draw()
 
 pygame.display.flip()
@@ -175,7 +182,9 @@ while running:
             snake.keyHandler(event)
 
     if(snake.givePos() == food.givePos()):
-        snake.eat(1)
+        snake.eat(food.nutrition)
+        food = Food(screen, random.randint(0,wid-1), random.randint(0, hei-1), fruitcolors[random.randint(0, len(fruitcolors)-1)], 1)
+        food.draw()
 
     pygame.display.flip()
     clock.tick(10)
