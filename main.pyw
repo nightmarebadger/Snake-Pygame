@@ -8,12 +8,20 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 2:31:09
+* Last Modified : 2.2.2012 2:41:36
 
 """
 
 
 import pygame
+
+
+def drawSquare(screen, x, y, color):
+    """
+        Draw on the screen on position x, y (x and y are not coordinates, they're the grid position!)
+        Upperleft square is 0,0
+    """
+    screen.fill(color, (x * w + 1, y * h + 1, w - 1, h - 1))
 
 
 black = (0,0,0)
