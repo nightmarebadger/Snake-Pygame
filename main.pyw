@@ -125,6 +125,35 @@ class Snake:
             drawSquare(self.screen, self.body.pop(), self.bgcolor)
 
 
+
+"""
+    The user can now enter different game modes. He can choose between different sizes (50x50, 30x30, 15x15) and speeds (5, 10, 20 fps)
+"""
+
+x = int(input("What size would you like the playing field to be? Enter the appropriate number:\n"
+        + "\t1. 15x15\n"
+        + "\t2. 30x30\n"
+        + "\t3. 50x50\n"))
+
+while(x not in (1,2,3)):
+    print("Please enter one of the provided numbers!")
+    x = int(input("What size would you like the playing field to be? Enter the appropriate number:\n"
+            + "\t1. 15x15\n"
+            + "\t2. 30x30\n"
+            + "\t3. 50x50\n"))
+
+y = int(input("How fast would you like the game to be? Enter the appropriate number:\n"
+        + "\t1. Slow\n"
+        + "\t2. Medium\n"
+        + "\t3. Fast\n"))
+
+while(y not in (1,2,3)):
+    y = int(input("How fast would you like the game to be? Enter the appropriate number:\n"
+            + "\t1. Slow\n"
+            + "\t2. Medium\n"
+            + "\t3. Fast\n"))
+
+
 black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
@@ -138,8 +167,15 @@ fruitcolors = [black, white, red, green, blue]
 width = 600
 height = 600
 
-wid = 50
-hei = 50
+if(x == 1):
+    wid = 15
+    hei = 15
+elif(x == 2):
+    wid = 30
+    hei = 30
+elif(x == 3):
+    wid = 50
+    hei = 50
 
 w = width//wid
 h = height//hei
@@ -147,6 +183,13 @@ h = height//hei
 screen = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
 
+# Initialises speed
+if(y == 1):
+    speed = 5
+elif(y == 2):
+    speed = 10
+elif(y == 3):
+    speed = 20
 
 running = True
 
@@ -159,7 +202,7 @@ for i in range(h, height, h):
     pygame.draw.line(screen, black, (0,i), (height,i))
 
 # Makes snake and does the initial drawing
-snake = Snake(screen, bgcolor, 24, 24, black, 5)
+snake = Snake(screen, bgcolor, wid//2 - 1, hei//2 - 1, black, 5)
 snake.draw()
 
 # Makes sure food isn't colored the same as snake
@@ -203,4 +246,4 @@ while running:
         food.draw()
 
     pygame.display.flip()
-    clock.tick(10)
+    clock.tick(speed)
