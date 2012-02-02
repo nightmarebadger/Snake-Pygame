@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 3:21:00
+* Last Modified : 2.2.2012 3:26:13
 
 """
 
@@ -74,6 +74,14 @@ class Snake:
 
         if((self.x, self.y) in self.body):
             self.crashed = True
+            return False
+
+        if(self.x < 0 or self.x >= wid):
+            self.crashed = True
+            return False
+        if(self.y < 0 or self.y >= hei):
+            self.crashed = True
+            return False
 
         # Draw the head that moved
         drawSquare(self.screen, (self.x,self.y), self.color)
@@ -96,8 +104,11 @@ blue = (0,0,255)
 width = 600
 height = 600
 
-w = width//50
-h = height//50
+wid = 50
+hei = 50
+
+w = width//wid
+h = height//hei
 
 screen = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
