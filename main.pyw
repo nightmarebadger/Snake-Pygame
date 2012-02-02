@@ -54,7 +54,7 @@ class Snake:
         self.speed = 1
 
     def givePos(self):
-        return (event.x, event.y)
+        return (self.x, self.y)
 
     def keyHandler(self, event):
         try:
