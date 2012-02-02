@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 3:19:22
+* Last Modified : 2.2.2012 3:21:00
 
 """
 
@@ -41,6 +41,8 @@ class Snake:
 
         self.speed = 1
 
+    def givePos(self):
+        return (event.x, event.y)
 
     def keyHandler(self, event):
 
