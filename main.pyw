@@ -8,13 +8,19 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 2:28:48
+* Last Modified : 2.2.2012 2:31:09
 
 """
 
 
 import pygame
 
+
+black = (0,0,0)
+white = (255,255,255)
+red = (255,0,0)
+green = (0,255,0)
+blue = (0,0,255)
 
 
 width = 600
@@ -29,11 +35,11 @@ clock = pygame.time.Clock()
 
 running = True
 
-screen.fill((255,255,255))
+screen.fill(white)
 for i in range(w, width, w):
-    pygame.draw.line(screen, (0,0,0), (i,0), (i,height))
+    pygame.draw.line(screen, black, (i,0), (i,height))
 for i in range(h, height, h):
-    pygame.draw.line(screen, (0,0,0), (0,i), (height,i))
+    pygame.draw.line(screen, black, (0,i), (height,i))
 
 pygame.display.flip()
 
