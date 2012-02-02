@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 3:15:45
+* Last Modified : 2.2.2012 3:19:22
 
 """
 
@@ -64,8 +64,8 @@ class Snake:
         drawSquare(self.screen, (self.x,self.y), self.color)
 
     def move(self):
-
-        self.body.insert(0, (self.x, self.y))
+        if(self.vx != 0 or self.vy != 0):
+            self.body.insert(0, (self.x, self.y))
 
         self.x += self.vx
         self.y += self.vy
@@ -120,6 +120,8 @@ while running:
 
     snake.move()
 
+    if(snake.crashed):
+        running = False
     for event in pygame.event.get():
         if(event.type == pygame.QUIT):
             running = False
