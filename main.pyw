@@ -8,7 +8,7 @@
 
 * Creation Date : 02-02-2012
 
-* Last Modified : 2.2.2012 2:41:36
+* Last Modified : 2.2.2012 3:07:23
 
 """
 
@@ -16,12 +16,73 @@
 import pygame
 
 
-def drawSquare(screen, x, y, color):
+def drawSquare(screen, position, color):
     """
         Draw on the screen on position x, y (x and y are not coordinates, they're the grid position!)
         Upperleft square is 0,0
     """
-    screen.fill(color, (x * w + 1, y * h + 1, w - 1, h - 1))
+    screen.fill(color, (position[0] * w + 1, position[1] * h + 1, w - 1, h - 1))
+
+
+class Snake:
+    def __init__(self, screen, bgcolor, x, y, color, grow_to = 2):
+        self.screen = screen
+        self.bgcolor = bgcolor
+        self.x = x
+        self.y = y
+        self.color = color
+        self.grow_to = grow_to
+        
+        self.vx = 0
+        self.vy = 0
+        self.body = []
+        self.crashed = False
+        self.length = 1
+
+        self.speed = 1
+
+
+    def keyHandler(self):
+        keys = pygame.key.get_pressed()
+
+        if(keys[pygame.K_UP] and self.vy <= 0):
+            self.vx = 0
+            self.vy = -self.speed
+        elif(keys[pygame.K_DOWN] and self.vy >= 0):
+            self.vx = 0
+            self.vy = self.speed
+        elif(keys[pygame.K_LEFT] and self.vx <= 0):
+            self.vx = -self.speed
+            self.vy = 0
+        elif(keys[pygame.K_RIGHT] and self.vx >= 0):
+            self.vx = self.speed
+            self.vy = 0
+
+
+
+    def draw(self):
+        # Initial draw, other drawing will be done in move function
+        drawSquare(self.screen, (self.x,self.y), self.color)
+
+    def move(self):
+
+        self.body.insert(0, (self.x, self.y))
+
+        self.x += self.vx
+        self.y += self.vy
+
+        if((self.x, self.y) in self.body):
+            self.crashed = True
+
+        # Draw the head that moved
+        drawSquare(self.screen, (self.x,self.y), self.color)
+
+        if(self.grow_to > self.length):
+            self.length += 1
+
+        # If too long, pop the last element of body and "delete" that square
+        if(len(self.body) > self.length):
+            drawSquare(self.screen, self.body.pop(), self.bgcolor)
 
 
 black = (0,0,0)
@@ -49,13 +110,21 @@ for i in range(w, width, w):
 for i in range(h, height, h):
     pygame.draw.line(screen, black, (0,i), (height,i))
 
+#drawSquare(screen, (2,3), blue)
+
+snake = Snake(screen, white, 24, 24, black)
+snake.draw()
+
 pygame.display.flip()
 
 while running:
 
-
+    snake.keyHandler()
+    snake.move()
 
     for event in pygame.event.get():
         if(event.type == pygame.QUIT):
             running = False
-
+    
+    pygame.display.flip()
+    clock.tick(5)
